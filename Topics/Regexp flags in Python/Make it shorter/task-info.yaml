@@ -1,0 +1,29 @@
+type: matching
+captions:
+- <code>re.IGNORECASE</code>
+- <code>re.DOTALL</code>
+- <code>re.MULTILINE</code>
+- <code>re.VERBOSE</code>
+- <code>re.ASCII</code>
+options:
+- <code>re.X</code>
+- <code>re.S</code>
+- ' <code>re.I</code>'
+- <code>re.M</code>
+- <code>re.A</code>
+files:
+- name: main.py
+  visible: true
+  text: |+
+    #  You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22006#comment
+status: Solved
+record: -1
+ordering:
+- 0
+- 1
+- 2
+- 3
+- 4

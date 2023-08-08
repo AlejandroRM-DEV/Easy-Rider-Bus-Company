@@ -169,6 +169,9 @@ files:
 
     if __name__ == '__main__':    EasyRiderStage2('easyrider.easyrider').run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/128/stages/681/implement#comment
-status: Unchecked
-record: -1
+feedback_link: https://hyperskill.org/learn/step/10889#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Mon, 07 Aug 2023 05:50:20 UTC"
+record: 2

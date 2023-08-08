@@ -1,0 +1,29 @@
+type: matching
+captions:
+- "<code>re.sub('question', 'issue', string)</code>"
+- "<code>re.search('to be', string)</code>"
+- "<code>re.split(',\\s', string)</code>"
+- "<code>re.findall('be', string)</code>"
+- "<code>re.match('to be', string)</code>"
+options:
+- "&lt;re.match object;=\"\" span=\"(14,\" 19),=\"\" match=\"to be\"&gt;"
+- "['be', 'be']"
+- "['To be', 'or not to be', 'that is the question']"
+- None
+- "'To be, or not to be, that is the issue'"
+files:
+- name: main.py
+  visible: true
+  text: |+
+    #  You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/14181#comment
+status: Solved
+record: -1
+ordering:
+- 0
+- 1
+- 2
+- 3
+- 4
