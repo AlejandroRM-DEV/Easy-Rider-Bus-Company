@@ -1,6 +1,7 @@
 import json
 import re
 from collections import Counter
+from datetime import datetime
 
 
 def check_errors(buses):
@@ -43,15 +44,12 @@ def count_stops(buses):
     print(counts)
 
 
-if __name__ == "__main__":
-    data = input()
-    buses = json.loads(data)
-
+def check_stops_types(buses):
     bus_stops = {}
     stop_names = []
     starting_stops = set()
     final_stops = set()
-    transfer_stops = set()
+    wrong_on_demand_stops = set()
 
     for stop in buses:
         bus_id = stop["bus_id"]
@@ -79,8 +77,49 @@ if __name__ == "__main__":
     for counter in counters:
         element_counts.update(counter)
 
-    intersection_elements = [element for element, count in element_counts.items() if count >= 2]
+    transfer_stops = [element for element, count in element_counts.items() if count >= 2]
 
     print("Start stops:", len(starting_stops), sorted(starting_stops))
-    print("Transfer stops:", len(intersection_elements), sorted(intersection_elements))
+    print("Transfer stops:", len(transfer_stops), sorted(transfer_stops))
     print("Finish stops:", len(final_stops), sorted(final_stops))
+
+    for stop in buses:
+        stop_name = stop["stop_name"]
+        stop_type = stop["stop_type"]
+        if (stop_type == "O" and
+                (stop_name in starting_stops or stop_name in transfer_stops or stop_name in final_stops)):
+            wrong_on_demand_stops.add(stop_name)
+
+    if len(wrong_on_demand_stops):
+        print(sorted(wrong_on_demand_stops))
+    else:
+        print("OK")
+
+def check_stops_times(buses):
+    last_bus_id = None
+    last_time = None
+    errors = []
+    for bus in buses:
+        if last_bus_id == bus["bus_id"]:
+            time_format = "%H:%M"
+            datetime1 = datetime.strptime(last_time, time_format)
+            datetime2 = datetime.strptime(bus["a_time"], time_format)
+            if datetime1 >= datetime2:
+                errors.append((bus["bus_id"], bus["stop_name"]))
+
+            last_time = bus["a_time"]
+        else:
+            last_bus_id = bus["bus_id"]
+            last_time = bus["a_time"]
+
+    if len(errors) == 0:
+        print("OK")
+    else:
+        for bus_id, stop_name in errors:
+            print(f"bus_id line {bus_id}: wrong time on station {stop_name}")
+
+
+if __name__ == "__main__":
+    data = input()
+    buses = json.loads(data)
+    check_stops_types(buses)
